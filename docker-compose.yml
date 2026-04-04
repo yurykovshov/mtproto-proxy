@@ -1,0 +1,21 @@
+services:
+  mtg:
+    image: nineseconds/mtg:2
+    restart: unless-stopped
+    ports:
+      - "${MTG_PORT}:${MTG_PORT}"
+    volumes:
+      - ./config.toml:/config.toml:ro
+    command: run /config.toml
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 2 * * *

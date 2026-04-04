@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(ls *.md)",
+      "Bash([ -f \".planning/phases/01-core-proxy/01-02-SUMMARY.md\" ])",
+      "Bash(git add:*)",
+      "Bash(cat .planning/phases/01-core-proxy/*-VERIFICATION.md)",
+      "Bash(grep -n \"MTG_SECRET=\\\\${MTG_SECRET}\" setup.sh)"
+    ]
+  }
+}
