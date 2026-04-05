@@ -15,6 +15,7 @@ A self-hosted [MTProto proxy](https://core.telegram.org/mtproto) for Telegram, d
 ```bash
 # SSH into a fresh VPS (Ubuntu/Debian), then:
 curl -fsSL https://raw.githubusercontent.com/yurykovshov/mtproto-proxy/main/setup.sh -o setup.sh
+curl -fsSL https://raw.githubusercontent.com/yurykovshov/mtproto-proxy/main/docker-compose.yml -o docker-compose.yml
 chmod +x setup.sh
 sudo ./setup.sh
 ```
