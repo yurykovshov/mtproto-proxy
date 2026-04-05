@@ -116,6 +116,7 @@ if [[ -f "$ENV_FILE" ]] && grep -q "^MTG_SECRET=ee" "$ENV_FILE"; then
         2)
             log_step "Updating deployment..."
             generate_config
+            cp "$(dirname "$0")/docker-compose.yml" "$COMPOSE_FILE"
             cd "$WORKDIR"
             sudo docker compose pull
             sudo docker compose up -d
