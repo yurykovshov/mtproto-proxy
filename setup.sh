@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(CDPATH='' cd "$(dirname "$0")" && pwd)"
 WORKDIR="/opt/mtproto-proxy"
 ENV_FILE="$WORKDIR/.env"
 COMPOSE_FILE="$WORKDIR/docker-compose.yml"
@@ -116,7 +117,7 @@ if [[ -f "$ENV_FILE" ]] && grep -q "^MTG_SECRET=ee" "$ENV_FILE"; then
         2)
             log_step "Updating deployment..."
             generate_config
-            cp "$(dirname "$0")/docker-compose.yml" "$COMPOSE_FILE"
+            cp "$SCRIPT_DIR/docker-compose.yml" "$COMPOSE_FILE"
             cd "$WORKDIR"
             sudo docker compose pull
             sudo docker compose up -d
@@ -161,7 +162,7 @@ VPS_IP=${VPS_IP}
 ENV
 
 generate_config
-cp "$(dirname "$0")/docker-compose.yml" "$COMPOSE_FILE"
+cp "$SCRIPT_DIR/docker-compose.yml" "$COMPOSE_FILE"
 log_ok "Config files written to $WORKDIR"
 
 log_step "Starting proxy..."
