@@ -62,6 +62,8 @@ assert "Copies docker-compose.yml to workdir" grep -q "docker-compose.yml" "$SS"
 assert "Generates config.toml with bind-to (Pitfall 3)" grep -q 'bind-to' "$SS"
 assert "Uses docker compose (v2, not docker-compose)" grep -q "docker compose" "$SS"
 assert_not "Does not use docker-compose v1 command" grep -q "docker-compose " "$SS"
+assert "Configures firewall (ufw allow 22 and 443)" grep -q "ufw allow 22/tcp" "$SS"
+assert "Opens port 443 in firewall" grep -q "ufw allow 443/tcp" "$SS"
 assert "Detects VPS IP with fallback (Pitfall 2)" grep -q "ifconfig.me\|ipify\|icanhazip" "$SS"
 assert "Secret stored in .env not Docker volume (DEPLOY-03)" grep -q 'MTG_SECRET=' "$SS"
 

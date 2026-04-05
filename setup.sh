@@ -47,6 +47,18 @@ install_docker() {
     fi
 }
 
+configure_firewall() {
+    if ! command -v ufw &>/dev/null; then
+        log_ok "ufw not installed — skipping firewall configuration"
+        return
+    fi
+    log_step "Configuring firewall (ufw)..."
+    sudo ufw allow 22/tcp   >/dev/null 2>&1
+    sudo ufw allow 443/tcp  >/dev/null 2>&1
+    sudo ufw --force enable >/dev/null 2>&1
+    log_ok "Firewall enabled: ports 22 (SSH) and 443 (proxy) allowed"
+}
+
 detect_ip() {
     local ip
     ip=$(curl -4 -s --connect-timeout 5 https://api.ipify.org \
@@ -121,6 +133,8 @@ fi
 
 log_step "Installing Docker..."
 install_docker
+
+configure_firewall
 
 log_step "Creating working directory..."
 sudo mkdir -p "$WORKDIR"
